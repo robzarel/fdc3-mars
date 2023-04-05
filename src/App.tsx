@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+type W = Window &
+  typeof globalThis & {
+    fdc3: any;
+  };
 
 function App() {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(()=> {
+    const startFdc3 = () => {
+      (window as W).fdc3.addIntentListener('ViewContact', async (context: any) => {
+        console.log('context', context);
+        const count = context.id.count;
+        setCounter(count);
+      });
+    }
+    
+    if ((window as W).fdc3) {
+      startFdc3();
+    } else {
+      window.addEventListener('fdc3Ready', startFdc3);
+    }
+    
+    return () => {
+      window.removeEventListener('fdc3Ready', startFdc3);
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>recieved counter value: {counter}</p>
     </div>
   );
 }
