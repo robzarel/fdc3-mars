@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  width: 1280px;
+  margin: 0 auto;
+}
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px;
+  width: 620px;
+}
+.username,
+.email {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.avatar {
+  border-radius: 10px;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.favorite {
+  color: green;
+}
